@@ -17,7 +17,11 @@ function watchstatic(options = {}) {
 		name: 'watchstatic',
 		buildStart() {
 			for (const target of targets) {
-				this.addWatchFile(target.src);
+				if (Array.isArray(target.src)) {
+					for (const file of target.src) {
+						this.addWatchFile(file);
+					}
+				} else this.addWatchFile(target.src);
 			}
 		},
 	};
